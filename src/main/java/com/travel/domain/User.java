@@ -2,28 +2,59 @@ package com.travel.domain;
 
 //import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
-
 /**
  * @auther Summerday
  * User实体类
  */
 public class User {
-    //private static Logger logger = Logger.getLogger(User.class);
-    private Integer id;
+    private Integer uid;
     private String username;
     private String password;
-    private String nickname;
-
+    private String name;
+    private String birthday;
+    private String sex;
+    private String telephone;
     private String email;
+    private String status;
+    private String code;
 
-    public Integer getId() {
-        return id;
+    //无参构造
+    public User() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+
+
+    /**
+     * 含参构造
+     * @param uid 用户id
+     * @param username 用户名
+     * @param password 密码
+     * @param name 真实姓名
+     * @param birthday 出生日期
+     * @param sex 性别 男/女
+     * @param telephone 手机号
+     * @param email 邮箱
+     * @param status 激活状态Y/N
+     * @param code 激活码
+     */
+    public User(Integer uid, String username, String password, String name, String birthday, String sex, String telephone, String email, String status, String code) {
+        this.uid = uid;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.birthday = birthday;
+        this.sex = sex;
+        this.telephone = telephone;
+        this.email = email;
+        this.status = status;
+        this.code = code;
+    }
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     public String getUsername() {
@@ -42,12 +73,36 @@ public class User {
         this.password = password;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getName() {
+        return name;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public String getEmail() {
@@ -58,25 +113,19 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "User[" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", email='" + email + '\'' +
-                ']';
+    public String getStatus() {
+        return status;
     }
 
-    ////监听javabean再session域中的添加过程
-    //@Override
-    //public void valueBound(HttpSessionBindingEvent httpSessionBindingEvent) {
-    //    logger.info("用户"+username+"已登录");
-    //}
-    ////监听javabean再session域中的移除过程
-    //@Override
-    //public void valueUnbound(HttpSessionBindingEvent httpSessionBindingEvent) {
-    //    logger.info("用户"+username+"已注销");
-    //}
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }
