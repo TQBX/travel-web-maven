@@ -24,16 +24,13 @@
 		$(function () {
 			$("#btn_submit").click(function () {
 
-				$.post("loginServlet",$("#loginForm").serialize(),function (data) {
+				$.post("user/login",$("#loginForm").serialize(),function (data) {
 					//data:{flag:true/false,errorMsg:""}
 					if(data.flag){
 						location.href = "index.html";
 					}else{
 						//登陆失败
-						if("验证码错误" === data.errorMsg){
-
-							document.getElementById("check_img").src= "checkCode?"+new Date().getTime();
-						}
+						document.getElementById("check_img").src= "checkCode?"+new Date().getTime();
 						// alert("haha")
 						$("#errorMsg").html(data.errorMsg);
 					}

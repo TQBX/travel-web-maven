@@ -4,21 +4,32 @@ package com.travel.domain;
 import java.io.Serializable;
 
 /**
- * @auther Summerday
+ * @author Summerday
  * 用于封装后端返回前端数据对象
  */
 public class ResultInfo implements Serializable {
-    private boolean flag;//后端返回结果正常为true，发生异常返回false
-    private Object data;//后端返回结果数据对象
-    private String errorMsg;//发生异常的错误消息
+    /**
+     * 后端返回结果正常为true，发生异常返回false
+     */
+    private boolean flag;
+    /**
+     * 后端返回结果数据对象
+     */
+    private Object data;
+    /**
+     * 发生异常的错误消息
+     */
+    private String errorMsg;
 
-    //无参构造方法
+    /**
+     * 无参构造方法
+     */
     public ResultInfo() {
     }
     public ResultInfo(boolean flag) {
         this.flag = flag;
     }
-    /**
+    /**o
      * 有参构造方法
      * @param flag
      * @param errorMsg

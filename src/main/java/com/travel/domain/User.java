@@ -1,9 +1,6 @@
 package com.travel.domain;
-
-//import org.apache.log4j.Logger;
-
 /**
- * @auther Summerday
+ * @author Summerday
  * User实体类
  */
 public class User {
@@ -18,11 +15,8 @@ public class User {
     private String status;
     private String code;
 
-    //无参构造
     public User() {
     }
-
-
 
     /**
      * 含参构造

@@ -11,25 +11,33 @@ import java.util.Properties;
  * 发邮件工具类
  */
 public final class MailUtils {
-    //WKNLREFWSHMKQDIF
-    private static final String USER = "hyh1332790762@163.com"; // 发件人称号，同邮箱地址
-    private static final String PASSWORD = "VLXNNYWXPAAPRTGD"; // 如果是qq邮箱可以使用客户端授权码，或者登录密码
 
     /**
-     *
+     * 发件人称号，同邮箱地址
+     */
+    private static final String USER = "hyh1332790762@163.com";
+    /**
+     * 如果是qq邮箱可以使用客户端授权码，或者登录密码WKNLREFWSHMKQDIF
+     */
+    private static final String PASSWORD = "VLXNNYWXPAAPRTGD";
+
+    /**
+     * 发送验证信息的邮件
      * @param to 收件人邮箱
      * @param text 邮件正文
      * @param title 标题
      */
-    /* 发送验证信息的邮件 */
     public static boolean sendMail(String to, String text, String title){
         try {
             final Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.host", "smtp.163.com");//邮箱服务器,QQ为smtp.qq.com
+
+            //邮箱服务器,QQ为smtp.qq.com
+            props.put("mail.smtp.host", "smtp.163.com");
 
             // 发件人的账号
             props.put("mail.user", USER);
+
             //发件人的密码
             props.put("mail.password", PASSWORD);
 

@@ -6,13 +6,11 @@ import com.travel.domain.User;
 import com.travel.service.UserService;
 import com.travel.utils.MailUtils;
 import com.travel.utils.UuidUtils;
-import org.omg.CORBA.PRIVATE_MEMBER;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
 /**
- * @auther Summerday
+ * @author Summerday
  */
 public class UserServiceImpl implements UserService {
 
@@ -43,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
         userDao.UserSave(user);
         //发送邮件
-        String content = "<a href='http://localhost/webmvn/activeUserServlet?code="+user.getCode()+"'>点击激活[黑马旅游网]</a>";
+        String content = "<a href='http://localhost/webmvn/user/active?code="+user.getCode()+"'>点击激活[黑马旅游网]</a>";
 
         MailUtils.sendMail(user.getEmail(),content,"激活邮件");
 

@@ -4,6 +4,7 @@ import com.alibaba.druid.sql.dialect.sqlserver.visitor.SQLServerOutputVisitor;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,9 +14,11 @@ import java.io.IOException;
 import java.util.Random;
 
 /**
- * @auther Summerday
+ * @author Summerday
  */
+@WebServlet("/checkCode")
 public class CheckCodeServlet extends HttpServlet {
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 
         //服务器通知浏览器不要缓存
@@ -42,7 +45,7 @@ public class CheckCodeServlet extends HttpServlet {
         String checkCode = getCheckCode();
         System.out.println("生成的code为:"+checkCode);
         //将验证码放入HttpSession中
-        request.getSession().setAttribute("CHECKCODE_SERVER",checkCode);
+        request.getSession().setAttribute("checkCode",checkCode);
 
         //设置画笔颜色为黄色
         g.setColor(Color.YELLOW);
@@ -64,8 +67,9 @@ public class CheckCodeServlet extends HttpServlet {
         String base = "0123456789ABCDEFGabcdefg";
         int size = base.length();
         Random r = new Random();
-        StringBuffer sb = new StringBuffer();
-        for(int i=1;i<=4;i++){
+        StringBuilder sb = new StringBuilder();
+        int num = 4;
+        for(int i=1;i<=num;i++){
             //产生0到size-1的随机值
             int index = r.nextInt(size);
             //在base字符串中获取下标为index的字符
@@ -75,6 +79,7 @@ public class CheckCodeServlet extends HttpServlet {
         }
         return sb.toString();
     }
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doGet(request,response);
     }
