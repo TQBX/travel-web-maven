@@ -26,26 +26,11 @@ public class UserServlet extends BaseServlet{
     /**
      * 声明UserService的业务对象
      */
-
     private UserService service = new UserServiceImpl();
-    /**
-     *  序列化json对象
-     */
-    private ObjectMapper mapper = new ObjectMapper();
-    /**
-     *  消息提示对象
-     */
-
-    private ResultInfo info = new ResultInfo();
     /**
      * 声明User对象
      */
     private User user = new User();
-    /**
-     *  设置json数据返回的响应头
-     */
-    private final static String JSON_CONTENT_TYPE  = "application/json;charset=utf-8";
-
     /**
      * 注册功能
      * @param request
@@ -75,14 +60,10 @@ public class UserServlet extends BaseServlet{
         }else {
             //注册失败
             info.setFlag(false);
-            info.setErrorMsg("注册失败!");
+            info.setErrorMsg("用户名已存在!");
         }
         //将info对象序列化为json,返回客户端
-        String json = mapper.writeValueAsString(info);
-        //将json数据写回客户端
-        //设置content-type
-        response.setContentType(JSON_CONTENT_TYPE);
-        response.getWriter().write(json);
+        writeValue(info,response);
     }
     private boolean checkCode(HttpServletRequest request,HttpServletResponse response) throws IOException {
         //验证码校验
@@ -102,9 +83,7 @@ public class UserServlet extends BaseServlet{
                 info.setErrorMsg("验证码错误");
             }
             info.setFlag(false);
-            response.setContentType(JSON_CONTENT_TYPE);
-            String s = mapper.writeValueAsString(info);
-            response.getWriter().write(s);
+            writeValue(info,response);
             return false;
         }
         return true;
@@ -151,8 +130,7 @@ public class UserServlet extends BaseServlet{
 
         }
         //响应数据
-        response.setContentType(JSON_CONTENT_TYPE);
-        mapper.writeValue(response.getWriter(),info);
+        writeValue(info,response);
     }
 
     /**
@@ -168,8 +146,7 @@ public class UserServlet extends BaseServlet{
         User sessionUser = (User) request.getSession().getAttribute("user");
 
         //将user写回客户端
-        response.setContentType(JSON_CONTENT_TYPE);
-        mapper.writeValue(response.getWriter(),sessionUser);
+        writeValue(sessionUser,response);
     }
 
     /**
