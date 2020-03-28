@@ -9,26 +9,37 @@
         <link rel="stylesheet" type="text/css" href="css/common.css">
         <link rel="stylesheet" href="css/search.css">
         <script src="js/jquery-3.3.1.js"></script>
+        <script src="js/getParameter.js"></script>
         <script>
 
 
             //根据id不同,展示不同页面
             $(function () {
-                var search = location.search;
+                // var search = location.search;
+                //
+                // //切割字符串,取第二个值(id)
+                // var cid = search.split("=")[1];
 
-                //切割字符串,取第二个值(id)
-                var cid = search.split("=")[1];
+                var cid = getParameter("cid");
+
+                //rname
+                var rname = getParameter("rname");
+
+                //如果rname不为null或者"",进行uri解码
+                if(rname){
+                    rname = window.decodeURIComponent(rname);
+                }
 
                 //当页面加载完成后,调用load方法,发送ajax请求,加载数据
-                load(cid);
+                load(cid,null,rname);
 
 
             });
 
 
-            function load(cid, currentPage) {
+            function load(cid, currentPage,rname) {
                 //发送ajax请求,请求route/pageQuery,传递cid
-                $.get("route/pageQuery", {cid: cid, currentPage: currentPage}, function (pb) {
+                $.get("route/pageQuery", {cid: cid, currentPage: currentPage,rname:rname}, function (pb) {
 
                     //解析pagebean数据,展示页面上
 
@@ -55,13 +66,13 @@
                                 <li class="threeword"><a href="javascript:;">末页</a></li>
                      */
                     var lis = "";
-                    var firstPage = '<li onclick="javascript:load(' + cid + ')" style="cursor: pointer"><a href="javascript:void(0)">首页</a></li>';
+                    var firstPage = '<li onclick="javascript:load('+cid+',1,\''+rname+'\')" style="cursor: pointer"><a href="javascript:void(0)">首页</a></li>';
                     //上一页
                     var beforeNum = pb.currentPage - 1;
                     if (beforeNum <= 0) {
                         beforeNum = 1;
                     }
-                    var prevPage = '<li onclick="javascript:load(' + cid + ',' + beforeNum + ')" style="cursor: pointer" class="threeword"><a href="#">上一页</a></li>';
+                    var prevPage = '<li onclick="javascript:load(' + cid + ',' + beforeNum + ',\''+rname+'\')" style="cursor: pointer" class="threeword"><a href="#">上一页</a></li>';
                     lis += firstPage;
                     lis += prevPage;
                     //展示分页页码
@@ -103,10 +114,10 @@
                         var li;
                         //为当前页码加上样式
                         if (pb.currentPage == i) {
-                            li = '<li class="curPage" style="cursor: pointer" onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:void(0)">' + i + '</a></li>';
+                            li = '<li class="curPage" style="cursor: pointer" onclick="javascript:load(' + cid + ',' + i + ',\''+rname+'\')"><a href="javascript:void(0)">' + i + '</a></li>';
                         } else {
                             //创建页码的li
-                            li = '<li style="cursor: pointer" onclick="javascript:load(' + cid + ',' + i + ')"><a href="javascript:void(0)">' + i + '</a></li>';
+                            li = '<li style="cursor: pointer" onclick="javascript:load(' + cid + ',' + i + ',\''+rname+'\')"><a href="javascript:void(0)">' + i + '</a></li>';
                         }
 
                         //拼接字符串
@@ -139,8 +150,8 @@
                     if (nextNum > pb.totalPage) {
                         nextNum = pb.totalPage;
                     }
-                    var nextPage = '<li onclick="javascript:load(' + cid + ','+nextNum+')" style="cursor: pointer" class="threeword"><a href="javascript:void(0);">下一页</a></li>';
-                    var lastPage = '<li onclick="javascript:load(' + cid + ','+pb.totalPage+')" style="cursor: pointer" class="threeword"><a href="javascript:void(0);">末页</a></li>';
+                    var nextPage = '<li onclick="javascript:load(' + cid + ','+nextNum+',\''+rname+'\')" style="cursor: pointer" class="threeword"><a href="javascript:void(0);">下一页</a></li>';
+                    var lastPage = '<li onclick="javascript:load(' + cid + ','+pb.totalPage+',\''+rname+'\')" style="cursor: pointer" class="threeword"><a href="javascript:void(0);">末页</a></li>';
                     lis += nextPage;
                     lis += lastPage;
                     //将list内容设置到ul中
