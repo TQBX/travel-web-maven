@@ -2,8 +2,10 @@
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="GBK">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/test" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/test" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/travel/domain/Favorite.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/travel/domain/Route.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/travel/domain/RouteImg.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/travel/domain/Seller.java" charset="GBK" />
     <file url="PROJECT" charset="GBK" />
   </component>
 </project>

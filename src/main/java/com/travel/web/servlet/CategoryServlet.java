@@ -23,15 +23,11 @@ public class CategoryServlet extends BaseServlet {
      * @param response
      */
     public void findAll(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
-
         //调用service查询所有
         List<Category> cs = service.findAll();
 
         //将序列化json返回
         writeValue(cs,response);
-
-
-
 
     }
 }
