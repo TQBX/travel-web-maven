@@ -9,6 +9,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -96,12 +97,14 @@ public class UserServlet extends BaseServlet{
      * @throws IOException
      */
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         if(!checkCode(request,response)){
             return;
         }
         //获取用户名和密码
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+
         user.setUsername(username);
         user.setPassword(password);
 
@@ -122,6 +125,13 @@ public class UserServlet extends BaseServlet{
         }
         //登录成功
         if(u!=null&&activeCode.equals(u.getStatus())){
+
+            //勾选了自动登录
+            if("true".equals(request.getParameter("autoLogin"))){
+                Cookie cookie = new Cookie("autoLogin",user.getUsername()+"#"+user.getPassword());
+                cookie.setMaxAge(60*60*24);
+                response.addCookie(cookie);
+            }
             //登录成功标记
             request.getSession().setAttribute("user",u);
 
@@ -159,7 +169,11 @@ public class UserServlet extends BaseServlet{
     public void exit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //销毁session
         request.getSession().invalidate();
+        Cookie cookie = new Cookie("autoLogin","");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
         //跳转页面
+        info.setFlag(false);
         response.sendRedirect(request.getContextPath()+"/login.html");
     }
 
@@ -188,5 +202,44 @@ public class UserServlet extends BaseServlet{
             }
             response.getWriter().write(msg);
         }
+    }
+
+
+    /**
+     * 自动登录
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void autoLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        if(cookies!=null){
+            for (Cookie cookie : cookies) {
+                if("autoLogin".equals(cookie.getName())){
+                    boolean flag = false;
+                    String value = cookie.getValue();
+                    String username = value.split("#")[0];
+                    String password = value.split("#")[1];
+                    user.setPassword(password);
+                    user.setUsername(username);
+                    User loginUser = service.login(user);
+                    if(loginUser!=null){
+                        //登录成功标记
+                        request.getSession().setAttribute("user",loginUser);
+                        //登陆成功
+                        info.setFlag(true);
+                        writeValue(info,response);
+                        return;
+                    }
+
+                }
+            }
+            info.setErrorMsg("自动登录过期");
+            info.setFlag(false);
+            writeValue(info,response);
+
+        }
+
     }
 }

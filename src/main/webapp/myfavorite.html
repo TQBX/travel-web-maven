@@ -15,6 +15,115 @@
            }
        </style>
        <script src="js/jquery-3.3.1.js"></script>
+        <script src="js/getParameter.js"></script>
+        <script>
+
+            $(function () {
+
+
+
+                var uid = getParameter("uid");
+                // alert(location.href);
+                // alert(uid)
+
+                //当页面加载完成后,调用load方法,发送ajax请求,加载数据
+                load(uid,null)
+            });
+            load = function (uid,currentPage) {
+                $.get("route/pageFavorite",{uid:uid,currentPage:currentPage},function (pb) {
+
+                    //分页显示
+                    var lis = "";
+                    var firstPage = '<li onclick="javascript:load('+uid+',1)" style="cursor: pointer"><a href="javascript:void(0)">首页</a></li>';
+                    //上一页的序号
+                    var beforeNum = pb.currentPage - 1;
+                    if (beforeNum <= 0) {
+                        beforeNum = 1;
+                    }
+                    var prevPage = '<li onclick="javascript:load(' + uid + ',' + beforeNum + ')" style="cursor: pointer" class="threeword"><a href="#">上一页</a></li>';
+                    lis += firstPage;
+                    lis += prevPage;
+                    //展示分页页码
+
+                    /*
+                        一共展示10个页码,能够达到前五后四的效果
+                        如果前面不够5个后面补齐10个
+                        如果后面不足4个,前面补齐10ge
+                    */
+
+                    //定义开始位置begin.结束位置end
+                    var begin;
+                    var end;
+
+                    if(pb.totalPage<10){
+                        //总页码<10
+                        begin = 1;
+                        end = pb.totalPage;
+                    }else{
+                        //总页码>=10
+                        begin = pb.currentPage-5;
+                        end = pb.currentPage+4;
+                        //前面不够5个,后面补齐10个
+                        if(begin<1){
+                            begin = 1;
+                            end = begin+9;
+                        }
+                        //后面不足4个,前面补齐10个
+                        if(end>pb.totalPage){
+                            end = pb.totalPage;
+                            begin = end-9;
+                        }
+                    }
+                    for (var i = begin; i <= end; i++) {
+                        var li;
+                        //为当前页码加上样式
+                        if (pb.currentPage == i) {
+                            li = '<li class="curPage" style="cursor: pointer" onclick="javascript:load(' + uid + ',' + i + ')"><a href="javascript:void(0)">' + i + '</a></li>';
+                        } else {
+                            //创建页码的li
+                            li = '<li style="cursor: pointer" onclick="javascript:load(' + uid + ',' + i + ')"><a href="javascript:void(0)">' + i + '</a></li>';
+                        }
+
+                        //拼接字符串
+                        lis += li;
+                    }
+                    var nextNum = currentPage + 1;
+                    if (nextNum > pb.totalPage) {
+                        nextNum = pb.totalPage;
+                    }
+                    var nextPage = '<li onclick="javascript:load(' + uid + ','+nextNum+')" style="cursor: pointer" class="threeword"><a href="javascript:void(0);">下一页</a></li>';
+                    var lastPage = '<li onclick="javascript:load(' + uid + ','+pb.totalPage+')" style="cursor: pointer" class="threeword"><a href="javascript:void(0);">末页</a></li>';
+                    lis += nextPage;
+                    lis += lastPage;
+                    //将list内容设置到ul中
+                    $("#ul").html(lis);
+
+                    //列表数据展示
+                    var route_lis = "";
+                    for (var i = 0; i < pb.list.length; i++) {
+                        //获取{rid:1,rname:"xxx"}
+                        var route = pb.list[i];
+                        var li = '<div class="col-md-3">\n' +
+'                                    <a href="route_detail.html?rid='+route.rid+'">\n' +
+'                                        <img src="'+route.rimage+'" alt="">\n' +
+'                                        <div class="has_border">\n' +
+'                                            <h3>'+route.routeIntroduce+'</h3>\n' +
+'                                            <div class="price">网付价<em>￥</em><strong>'+route.price+'</strong><em>起</em></div>\n' +
+'                                        </div>\n' +
+'                                    </a>\n' +
+'                                </div>';
+                        route_lis += li;
+                    }
+                    $("#div_row").html(route_lis);
+                    //定位到页面顶部
+                    window.scrollTo(0,0);
+                })
+            }
+
+
+
+
+        </script>
     </head>
     <body>
     <!--引入头部-->
@@ -32,7 +141,7 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="home">
-                            <div class="row">
+                            <div class="row" id="div_row">
                                 <div class="col-md-3">
                                     <a href="route_detail.html">
                                         <img src="images/collection_pic.jpg" alt="">
@@ -146,7 +255,7 @@
                     </div>
                 </div>
                 <div class="pageNum">
-                    <ul>
+                    <ul id="ul">
                         <li><a href="">首页</a></li>
                         <li class="threeword"><a href="#">上一页</a></li>
                         <li><a href="#">1</a></li>

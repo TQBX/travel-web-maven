@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -22,6 +22,19 @@
 	<script>
 		//给登录按钮绑定单击事件
 		$(function () {
+
+			$.get("user/autoLogin",{},function (info) {
+				if(info.flag){
+					location.href = "index.html";
+
+				}else{
+					alert(info.errorMsg);
+				}
+			})
+
+
+
+
 			$("#btn_submit").click(function () {
 
 				$.post("user/login",$("#loginForm").serialize(),function (data) {
@@ -36,6 +49,8 @@
 					}
 				})
 			})
+
+
 		})
 
 		//发送ajax请求,提交表单数据
@@ -84,12 +99,12 @@
 			<div class="submit_btn">
         				<button type="button" id="btn_submit">登录</button>
         				<div class="auto_login">
-        					<input type="checkbox" name="" class="checkbox">
+        					<input type="checkbox" name="autoLogin" value="true" class="checkbox">
         					<span>自动登录</span>
         				</div>        				
         			</div>        			       		
         		</form>
-        		<div class="reg">没有账户？<a href="javascript:;">立即注册</a></div>
+        		<div class="reg">没有账户？<a href="javascript:location.href='register.html';">立即注册</a></div>
         	</div>
         </div>
     </section>

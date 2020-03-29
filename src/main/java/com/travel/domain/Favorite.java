@@ -9,7 +9,7 @@ public class Favorite implements Serializable {
     /**
      * 旅游线路对象
      */
-    private Route route;
+    private Integer rid;
     /**
      * 收藏时间
      */
@@ -17,7 +17,7 @@ public class Favorite implements Serializable {
     /**
      * 所属用户
      */
-    private User user;
+    private Integer uid;
 
     /**
      * 无参构造方法
@@ -25,24 +25,12 @@ public class Favorite implements Serializable {
     public Favorite() {
     }
 
-    /**
-     * 有参构造方法
-     * @param route
-     * @param date
-     * @param user
-     */
-    public Favorite(Route route, String date, User user) {
-            this.route = route;
-            this.date = date;
-            this.user = user;
+    public Integer getRid() {
+        return rid;
     }
 
-    public Route getRoute() {
-        return route;
-    }
-
-    public void setRoute(Route route) {
-        this.route = route;
+    public void setRid(Integer rid) {
+        this.rid = rid;
     }
 
     public String getDate() {
@@ -53,11 +41,11 @@ public class Favorite implements Serializable {
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 }

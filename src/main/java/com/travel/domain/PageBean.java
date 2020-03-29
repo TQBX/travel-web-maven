@@ -12,21 +12,21 @@ public class PageBean<T>{
     /**
      * 总记录数
      */
-    private int totalCount;
+    private Integer totalCount;
     /**
      * 总页数
      */
-    private int totalPage;
+    private Integer totalPage;
 
     /**
      * 当前页码
      */
-    private int currentPage;
+    private Integer currentPage;
 
     /**
      * 每页显示的条数
      */
-    private int pageSize;
+    private Integer pageSize;
 
     /**
      * 每页显示的数据集合

@@ -5,7 +5,7 @@ import com.travel.domain.User;
 import java.util.List;
 
 /**
- * @auther Summerday
+ * @author Summerday
  */
 public interface UserService {
 
@@ -25,5 +25,10 @@ public interface UserService {
      */
     boolean active(String code);
 
+    /**
+     * 用户登录
+     * @param user
+     * @return
+     */
     User login(User user);
 }

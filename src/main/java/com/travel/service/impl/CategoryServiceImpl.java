@@ -24,18 +24,15 @@ public class CategoryServiceImpl implements CategoryService {
         //从redis中查询
         //获取jedis客户端
         Jedis jedis = JedisUtils.getJedis();
-
         //查询sortedSet的score(cid)和值(cname)
         Set<Tuple> tupleSetInRedis = jedis.zrangeWithScores("category", 0, -1);
-
 
         //用于存储mysql数据库中查询的list
         List<Category> categoryInDb = null;
 
         //判断查询的集合是否为空
         if(tupleSetInRedis == null||tupleSetInRedis.size() == 0){
-            //如果为空,则证明是第一次访问
-            //从数据库查询,并存入数据进redis
+            //如果为空,则从数据库查询,并存入数据进redis
             System.out.println("从数据库中查询数据");
             categoryInDb = categoryDao.findAll();
             //将all存储到redis的category中
@@ -44,16 +41,17 @@ public class CategoryServiceImpl implements CategoryService {
             }
         }else {
             System.out.println("从缓存中读取数据");
+            Category category;
             //如果不为空,将set中的数据存入list
             categoryInDb = new ArrayList<>();
             for (Tuple tuple : tupleSetInRedis) {
-                Category category = new Category();
+                category = new Category();
+                //转移的过程
                 category.setCname(tuple.getElement());
                 category.setCid((int)tuple.getScore());
                 categoryInDb.add(category);
             }
         }
         return categoryInDb;
-
     }
 }
