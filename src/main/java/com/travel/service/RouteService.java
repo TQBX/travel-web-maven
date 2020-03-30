@@ -3,6 +3,8 @@ package com.travel.service;
 import com.travel.domain.PageBean;
 import com.travel.domain.Route;
 
+import java.util.List;
+
 /**
  * @author Summerday
  *
@@ -27,5 +29,25 @@ public interface RouteService {
      */
     Route findOne(String rid);
 
+    /**
+     * 根据人气查询
+     * @param size
+     * @return
+     */
+    List<Route> findCount(int size);
+
+    /**
+     * 根据日期查询
+     * @param size
+     * @return
+     */
+    List<Route> findDate(int size);
+
+    /**
+     * 根据主题查询
+     * @param size
+     * @return
+     */
+    List<Route> findTheme(int size);
 
 }

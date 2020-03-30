@@ -15,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,7 +24,13 @@ import java.util.List;
  */
 @WebServlet("/route/*")
 public class RouteServlet extends BaseServlet {
-    private RouteService service= new RouteServiceImpl();
+
+    private static final String COUNT = "count";
+    private static final String ISTHEMETOUR = "isThemeTour";
+    private static final String RDATE = "rdate";
+    private static final String DEFAULT = "count";
+
+    private RouteService routeService= new RouteServiceImpl();
     private FavoriteService favoriteService = new FavoriteServiceImpl();
     /**
      * 分页查询
@@ -63,7 +71,7 @@ public class RouteServlet extends BaseServlet {
         //}
 
         //调用service查询pagebean对象
-        PageBean<Route> pb = service.pageQuery(cid, currentPage, pageSize,rname);
+        PageBean<Route> pb = routeService.pageQuery(cid, currentPage, pageSize,rname);
         //将pagebean对象序列化未json返回
         writeValue(pb,response);
 
@@ -83,7 +91,7 @@ public class RouteServlet extends BaseServlet {
         String rid = request.getParameter("rid");
         //调用service查询route对象
 
-        Route route = service.findOne(rid);
+        Route route = routeService.findOne(rid);
 
         //转为json,返回客户端
         writeValue(route,response);
@@ -225,6 +233,24 @@ public class RouteServlet extends BaseServlet {
         PageBean<Route> pb = favoriteService.pageFavoriteRank(currentPage,pageSize,rname,first,last);
 
         writeValue(pb,response);
+    }
+
+    public void findCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String categoryStr = request.getParameter("category");
+        List<Route> list;
+        //页面显示得数量
+        int size = 4;
+        if("count".equals(categoryStr)){
+            list = routeService.findCount(size);
+        }else if("isThemeTour".equals(categoryStr)){
+            list = routeService.findTheme(size);
+        }else if ("rdate".equals(categoryStr)){
+            list = routeService.findDate(size);
+        }else {
+            list = routeService.findCount(size);
+        }
+        writeValue(list,response);
+
     }
 
 }

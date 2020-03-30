@@ -14,6 +14,7 @@ import com.travel.domain.RouteImg;
 import com.travel.domain.Seller;
 import com.travel.service.RouteService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,6 +75,21 @@ public class RouteServiceImpl implements RouteService {
         route.setCount(count);
 
         return route;
+    }
+
+    @Override
+    public List<Route> findCount(int size) {
+        return routeDao.findByCount(size);
+    }
+
+    @Override
+    public List<Route> findDate(int size) {
+        return routeDao.findByRdate(size);
+    }
+
+    @Override
+    public List<Route> findTheme(int size) {
+        return routeDao.findByTheme(size);
     }
 
 

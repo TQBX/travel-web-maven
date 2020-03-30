@@ -6,8 +6,8 @@ import com.travel.utils.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -95,5 +95,50 @@ public class RouteDaoImpl implements RouteDao {
     public Route findByRid(int rid) {
         String sql = "select * from tab_route where rid = ?";
         return template.queryForObject(sql,new BeanPropertyRowMapper<>(Route.class),rid);
+    }
+
+/*    @Override
+    public List<Route> findByCategory(String count, int size) {
+        List<Route>list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM tab_route ORDER BY ? DESC LIMIT 0 , ?";
+            list = template.query(sql,new BeanPropertyRowMapper<>(Route.class),count,size);
+        }catch (Exception e){
+
+        }
+        return list;
+    }*/
+    @Override
+    public List<Route> findByCount(int size) {
+        List<Route>list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM tab_route ORDER BY count DESC LIMIT 0 , ?";
+            list = template.query(sql,new BeanPropertyRowMapper<>(Route.class),size);
+        }catch (Exception e){
+
+        }
+        return list;
+    }
+    @Override
+    public List<Route> findByTheme(int size) {
+        List<Route>list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM tab_route ORDER BY isThemeTour DESC LIMIT 0 , ?";
+            list = template.query(sql,new BeanPropertyRowMapper<>(Route.class),size);
+        }catch (Exception e){
+
+        }
+        return list;
+    }
+    @Override
+    public List<Route> findByRdate(int size) {
+        List<Route>list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM tab_route ORDER BY rdate DESC LIMIT 0 , ?";
+            list = template.query(sql,new BeanPropertyRowMapper<>(Route.class),size);
+        }catch (Exception e){
+
+        }
+        return list;
     }
 }
