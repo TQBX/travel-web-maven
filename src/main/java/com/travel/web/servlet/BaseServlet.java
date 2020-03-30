@@ -3,13 +3,8 @@ package com.travel.web.servlet;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.domain.ResultInfo;
-import com.travel.domain.User;
-import com.travel.service.UserService;
-import com.travel.service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

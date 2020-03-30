@@ -1,7 +1,7 @@
 package com.travel.utils;
 
 /**
- * @auther Summerday
+ * @authr Summerday
  *
  * 字符串工具类
  */
@@ -34,7 +34,7 @@ public class StringUtils {
     /**
      * 忽视大小写，比较大小
      * @param a
-     * @param b
+     * @param bo
      * @return 都为null，或者忽视大小写情况下相等
      */
     public static boolean equalsIgnoreCase(String a, String b) {

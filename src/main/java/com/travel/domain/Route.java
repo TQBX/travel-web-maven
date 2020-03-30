@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * @author summerday
  * 旅游线路商品实体类
  */
 public class Route implements Serializable {

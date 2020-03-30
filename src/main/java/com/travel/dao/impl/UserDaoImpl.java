@@ -1,6 +1,5 @@
 package com.travel.dao.impl;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import com.travel.dao.UserDao;
 import com.travel.domain.User;
 import com.travel.utils.JDBCUtils;

@@ -3,6 +3,7 @@ package com.travel.domain;
 import java.io.Serializable;
 
 /**
+ * @author summerday
  * 收藏实体类
  */
 public class Favorite implements Serializable {

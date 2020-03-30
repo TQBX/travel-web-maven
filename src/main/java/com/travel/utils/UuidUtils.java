@@ -3,7 +3,7 @@ package com.travel.utils;
 import java.util.UUID;
 
 /**
- * @auther Summerdays
+ * @author Summerdays
  *
  * 产生UUID随机字符串工具类
  */

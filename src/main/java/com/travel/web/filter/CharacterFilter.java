@@ -1,6 +1,5 @@
 package com.travel.web.filter;
 
-import javax.print.DocFlavor;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;

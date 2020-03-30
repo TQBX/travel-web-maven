@@ -1,9 +1,6 @@
 package com.travel.dao;
 
-import com.travel.domain.RouteImg;
 import com.travel.domain.Seller;
-
-import java.util.List;
 
 /**
  * @author Summerday

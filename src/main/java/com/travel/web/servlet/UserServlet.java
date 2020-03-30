@@ -1,7 +1,5 @@
 package com.travel.web.servlet;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.travel.domain.ResultInfo;
 import com.travel.domain.User;
 import com.travel.service.UserService;
 import com.travel.service.impl.UserServiceImpl;

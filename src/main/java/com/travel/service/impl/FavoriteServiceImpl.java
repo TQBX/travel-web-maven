@@ -9,9 +9,7 @@ import com.travel.dao.impl.RouteImgDaoImpl;
 import com.travel.domain.Favorite;
 import com.travel.domain.PageBean;
 import com.travel.domain.Route;
-import com.travel.domain.RouteImg;
 import com.travel.service.FavoriteService;
-import org.springframework.util.RouteMatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,9 +58,7 @@ public class FavoriteServiceImpl implements FavoriteService {
             Integer rid = favorite.getRid();
             //根据rid寻找route
             route = routeDao.findByRid(rid);
-            //根据route找到imglist
-            //List<RouteImg> routeImgList = routeImgDao.findByRid(route.getRid());
-            //route.setRouteImgList(routeImgList);
+            //将route对象添加进list
             routeList.add(route);
         }
         pb.setList(routeList);
@@ -77,7 +73,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
         List<Route> routeList = new ArrayList<>();
         Route route;
-
+        //找到排名前几的路线
         List<Favorite> favoriteList = favoriteDao.findTopFavorite(top);
 
         for (Favorite favorite : favoriteList) {
@@ -98,13 +94,9 @@ public class FavoriteServiceImpl implements FavoriteService {
 
         //开始索引
         int start = (currentPage - 1) * pageSize;
-
-        //获取所有Favorite
-        //List<Favorite> favoriteList = favoriteDao.findTotal();
         List<Route> routeList;
         //遍历list
-        //for (Favorite favorite : favoriteList) {
-        //根据rid,寻找符合条件de route
+        //根据rid,寻找符合条件的 route
         routeList = favoriteDao.findRouteByRangePage(start, pageSize, rname, first, last);
 
         for (Route r : routeList) {
@@ -112,7 +104,7 @@ public class FavoriteServiceImpl implements FavoriteService {
             r.setCount(count);
         }
         //}
-        //错误!!int totalCount = routeList.size();
+        //这个写法是错误!!int totalCount = routeList.size();
         int totalCount = favoriteDao.findCountByRangeWithOutPage(rname, first, last);
         pb.setTotalCount(totalCount);
         //设置总页数 = 总记录数/每页显示条数

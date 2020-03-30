@@ -210,15 +210,16 @@ public class RouteServlet extends BaseServlet {
             rname = new String(rnameStr.getBytes("iso8859-1"),"utf-8");
         }
 
-
+        //获取当前页码数
         String currentPageStr = request.getParameter("currentPage");
         int currentPage = 1;
         if(!StringUtils.isEmpty(currentPageStr)){
             currentPage = Integer.parseInt(currentPageStr);
         }
 
+        //获取价格范围
         int first = 0;
-        //获取范围
+
         String firstStr = request.getParameter("first");
         if(!StringUtils.isEmpty(firstStr)){
             first = Integer.parseInt(firstStr);
@@ -228,6 +229,7 @@ public class RouteServlet extends BaseServlet {
         if(!StringUtils.isEmpty(lastStr)){
             last = Integer.parseInt(lastStr);
         }
+        //每页显示个数
         int pageSize = 4;
 
         PageBean<Route> pb = favoriteService.pageFavoriteRank(currentPage,pageSize,rname,first,last);
@@ -235,10 +237,19 @@ public class RouteServlet extends BaseServlet {
         writeValue(pb,response);
     }
 
+    /**
+     * 根据不同主题查询
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void findCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //这部分本身想法是直接定义一个方法,方法里传请求的参数字符串,但是没成功,也不知道为啥
         String categoryStr = request.getParameter("category");
         List<Route> list;
-        //页面显示得数量
+        //页面显示的数量
         int size = 4;
         if("count".equals(categoryStr)){
             list = routeService.findCount(size);

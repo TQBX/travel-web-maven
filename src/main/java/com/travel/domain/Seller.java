@@ -3,6 +3,7 @@ package com.travel.domain;
 import java.io.Serializable;
 
 /**
+ * @author summerday
  * 商家实体类
  */
 public class Seller implements Serializable {

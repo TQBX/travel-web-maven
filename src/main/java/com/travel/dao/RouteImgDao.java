@@ -1,6 +1,5 @@
 package com.travel.dao;
 
-import com.travel.domain.Route;
 import com.travel.domain.RouteImg;
 
 import java.util.List;

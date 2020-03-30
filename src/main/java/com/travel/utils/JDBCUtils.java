@@ -14,7 +14,9 @@ import java.util.Properties;
  */
 public class JDBCUtils {
 
-    //数据源
+    /**
+     *   数据源
+     */
     private static DataSource ds;
 
     //加载配置文件

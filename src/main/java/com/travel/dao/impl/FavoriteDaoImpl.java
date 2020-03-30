@@ -7,7 +7,6 @@ import com.travel.utils.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;

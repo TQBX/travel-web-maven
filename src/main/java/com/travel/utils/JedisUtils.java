@@ -1,9 +1,5 @@
 package com.travel.utils;
 
-/**
- * @author Summerday
- */
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -13,6 +9,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
+ * @author Summerday
  * Jedis工具类
  */
 public final class JedisUtils {

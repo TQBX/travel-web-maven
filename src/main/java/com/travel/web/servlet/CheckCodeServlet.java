@@ -1,7 +1,5 @@
 package com.travel.web.servlet;
 
-import com.alibaba.druid.sql.dialect.sqlserver.visitor.SQLServerOutputVisitor;
-
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
