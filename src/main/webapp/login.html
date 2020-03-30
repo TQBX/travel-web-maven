@@ -28,7 +28,7 @@
 					location.href = "index.html";
 
 				}else{
-					alert(info.errorMsg);
+					$("#errorMsg").html(info.errorMsg);
 				}
 			})
 
@@ -49,8 +49,6 @@
 					}
 				})
 			})
-
-
 		})
 
 		//发送ajax请求,提交表单数据

@@ -16,6 +16,23 @@
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/getParameter.js"></script>
+
+    <script>
+
+        $(function () {
+            $.get("route/find")
+
+
+
+
+
+        })
+
+
+
+    </script>
 </head>
 <body>
 	<!--引入头部-->
@@ -82,7 +99,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="popularity">
-                        <div class="row">
+                        <div class="row" id="popularity_div">
                             <div class="col-md-3">
                                 <a href="javascript:;">
                                     <img src="images/jiangxuan_4.jpg" alt="">
@@ -122,7 +139,7 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="newest">
-                        <div class="row">
+                        <div class="row" id="newest_div">
                             <div class="col-md-3">
                                 <a href="javascript:;">
                                     <img src="images/jiangxuan_1.jpg" alt="">
@@ -162,7 +179,7 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="theme">
-                        <div class="row">
+                        <div class="row" id="theme_div">
                             <div class="col-md-3">
                                 <a href="javascript:;">
                                     <img src="images/jiangxuan_2.jpg" alt="">

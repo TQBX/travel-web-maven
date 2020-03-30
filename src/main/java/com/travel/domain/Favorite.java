@@ -48,4 +48,13 @@ public class Favorite implements Serializable {
     public void setUid(Integer uid) {
         this.uid = uid;
     }
+
+    @Override
+    public String toString() {
+        return "Favorite{" +
+                "rid=" + rid +
+                ", date='" + date + '\'' +
+                ", uid=" + uid +
+                '}';
+    }
 }

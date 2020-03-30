@@ -1,6 +1,7 @@
 package com.travel.dao;
 
 import com.travel.domain.Favorite;
+import com.travel.domain.Route;
 
 import java.util.List;
 
@@ -47,4 +48,43 @@ public interface FavoriteDao {
      */
     List<Favorite> findByPage(int uid, int start, int pageSize);
 
+    /**
+     * 找到收藏量top前几的route
+     * @param top
+     * @return
+     */
+    List<Favorite> findTopFavorite(int top);
+
+    /**
+     * 找到所有的Favorite(不重复)
+     * @return
+     */
+    List<Favorite> findTotal();
+
+    /**
+     * 分页范围查询route
+     * @param start
+     * @param pageSize
+     * @param rname
+     * @param first
+     * @param last
+     * @return
+     */
+    List<Route> findRouteByRangePage(int start, int pageSize, String rname, int first, int last);
+
+    /**
+     * 查询对应rid路线的收藏次数
+     * @param rid
+     * @return
+     */
+    int findCountGroupByRid(int rid);
+
+    /**
+     * 不分页情况下的总数
+     * @param rname
+     * @param first
+     * @param last
+     * @return
+     */
+    int findCountByRangeWithOutPage(String rname, int first, int last);
 }

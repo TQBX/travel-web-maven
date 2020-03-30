@@ -27,6 +27,7 @@
                 //当页面加载完成后,调用load方法,发送ajax请求,加载数据
                 load(cid,null,rname);
 
+                hotQuery();
 
             });
             function load(cid, currentPage,rname) {
@@ -132,6 +133,32 @@
                     window.scrollTo(0,0);
                 })
             }
+
+            //热门推荐查询
+            hotQuery = function () {
+
+                $.get("route/hotQuery",{},function (hf) {
+
+                    //[{"rid":1},{}]
+
+                    //<a href="route_detail.html?rid='+route.rid+'">查看详情</a>
+                    var lis = "";
+                    for (var i = 0; i < hf.length; i++) {
+                        var li = '                            <li>\n' +
+'                                <a href="route_detail.html?rid='+hf[i].rid+'"><div class="left"><img src="'+hf[i].rimage+'" alt=""></div>\n' +
+'                                <div class="right">\n' +
+'                                    <p>'+hf[i].rname+'</p>\n' +
+'                                    <p>网付价<span>&yen;<span>'+hf[i].price+'</span>起</span>\n' +
+'                                    </p>\n' +
+'                                </div></a>\n' +
+'                            </li>';
+                        lis+=li;
+                    }
+                    $("#hotQuery").html(lis);
+
+                })
+
+            }
         </script>
     </head>
     <body>
@@ -167,8 +194,8 @@
                             <div class="hot">HOT</div>
                             <span>热门推荐</span>
                         </div>
-                        <ul>
-                            <li>
+                        <ul id="hotQuery">
+                            <!--<li>
                                 <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
                                 <div class="right">
                                     <p>清远新银盏温泉度假村酒店/自由行套...</p>
@@ -207,7 +234,7 @@
                                     <p>网付价<span>&yen;<span>899</span>起</span>
                                     </p>
                                 </div>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>

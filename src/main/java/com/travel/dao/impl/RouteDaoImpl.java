@@ -6,6 +6,7 @@ import com.travel.utils.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,11 +35,13 @@ public class RouteDaoImpl implements RouteDao {
         List params = new ArrayList();
         //判断参数是否有值
 
+        //路线编号
         if(cid!=0){
             sb.append("and cid = ? ");
             //添加?对应的值
             params.add(cid);
         }
+        //路线名称
         if(rname!=null&&rname.length()>0){
 
             sb.append("and rname like ? ");
@@ -58,7 +61,7 @@ public class RouteDaoImpl implements RouteDao {
      * @return
      */
     @Override
-    public List<Route> findByPage(int cid, int start, int pageSize, String rname) {
+    public List<Route> findByPage(int cid, int start, int pageSize, String rname ) {
         //String sql = "select * from tab_route where cid = ? limit ? , ?";
 
         String sql = " select * from tab_route where 1 = 1 ";

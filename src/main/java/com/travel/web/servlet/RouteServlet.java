@@ -8,12 +8,14 @@ import com.travel.service.FavoriteService;
 import com.travel.service.RouteService;
 import com.travel.service.impl.FavoriteServiceImpl;
 import com.travel.service.impl.RouteServiceImpl;
+import com.travel.utils.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Summerday
@@ -36,20 +38,22 @@ public class RouteServlet extends BaseServlet {
         String cidStr = request.getParameter("cid");
 
 
+        String rname = null;
         //用户输入的查询rname
-        String rname = request.getParameter("rname");
+        String rnameStr = request.getParameter("rname");
 
-        rname = new String(rname.getBytes("iso8859-1"),"utf-8");
+        if(rnameStr!=null&&rnameStr.length()>0&&!"null".equals(rnameStr)) {
+            rname = new String(rname.getBytes("iso8859-1"), "utf-8");
+        }
 
         int cid = 0;
-        String nullStr = "null";
         //处理参数
-        if(cidStr!=null&&cidStr.length()>0&& !nullStr.equals(cidStr)){
+        if(cidStr!=null&&cidStr.length()>0&& !"null".equals(cidStr)){
             cid = Integer.parseInt(cidStr);
         }
         int currentPage = 1;
         //处理参数
-        if(currentPageStr!=null&&currentPageStr.length()>0){
+        if(!StringUtils.isEmpty(currentPageStr)){
             currentPage = Integer.parseInt(currentPageStr);
         }
         int pageSize = 10;
@@ -142,6 +146,13 @@ public class RouteServlet extends BaseServlet {
 
     }
 
+    /**
+     * 分页查询我的收藏
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void pageFavorite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //获取用户的uid和currentpage
@@ -156,8 +167,64 @@ public class RouteServlet extends BaseServlet {
         int pageSize = 4;
         PageBean<Route> pb = favoriteService.pageFavorite(uid,currentPage,pageSize);
         writeValue(pb,response);
+    }
 
 
+    /**
+     * 热门推荐
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void hotQuery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //显示的热门数量
+        int top  = 5;
+        List<Route> routeList = favoriteService.hotQuery(top);
+
+        writeValue(routeList,response);
+
+    }
+
+    /**
+     * 收藏排行榜
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void favoriteRank(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //获取数据
+        String rnameStr = request.getParameter("rname");
+        String rname = null;
+        if(rnameStr!=null){
+            //中文乱码问题
+            rname = new String(rnameStr.getBytes("iso8859-1"),"utf-8");
+        }
+
+
+        String currentPageStr = request.getParameter("currentPage");
+        int currentPage = 1;
+        if(!StringUtils.isEmpty(currentPageStr)){
+            currentPage = Integer.parseInt(currentPageStr);
+        }
+
+        int first = 0;
+        //获取范围
+        String firstStr = request.getParameter("first");
+        if(!StringUtils.isEmpty(firstStr)){
+            first = Integer.parseInt(firstStr);
+        }
+        int last = 0;
+        String lastStr = request.getParameter("last");
+        if(!StringUtils.isEmpty(lastStr)){
+            last = Integer.parseInt(lastStr);
+        }
+        int pageSize = 4;
+
+        PageBean<Route> pb = favoriteService.pageFavoriteRank(currentPage,pageSize,rname,first,last);
+
+        writeValue(pb,response);
     }
 
 }

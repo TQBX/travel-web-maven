@@ -6,6 +6,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/travel/domain/Route.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/travel/domain/RouteImg.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/travel/domain/Seller.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/travel/utils/StringUtils.java" charset="GBK" />
     <file url="PROJECT" charset="GBK" />
   </component>
 </project>

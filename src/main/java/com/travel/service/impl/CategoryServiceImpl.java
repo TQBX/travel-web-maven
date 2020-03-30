@@ -25,10 +25,11 @@ public class CategoryServiceImpl implements CategoryService {
         //获取jedis客户端
         Jedis jedis = JedisUtils.getJedis();
         //查询sortedSet的score(cid)和值(cname)
+
         Set<Tuple> tupleSetInRedis = jedis.zrangeWithScores("category", 0, -1);
 
         //用于存储mysql数据库中查询的list
-        List<Category> categoryInDb = null;
+        List<Category> categoryInDb;
 
         //判断查询的集合是否为空
         if(tupleSetInRedis == null||tupleSetInRedis.size() == 0){

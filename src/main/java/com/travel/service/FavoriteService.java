@@ -3,6 +3,8 @@ package com.travel.service;
 import com.travel.domain.PageBean;
 import com.travel.domain.Route;
 
+import java.util.List;
+
 /**
  * @author Summerday
  */
@@ -31,4 +33,22 @@ public interface FavoriteService {
      * @return
      */
     PageBean<Route> pageFavorite(int uid, int currentPage, int pageSize);
+
+    /**
+     * 热门推荐
+     * @param top
+     * @return
+     */
+    List<Route> hotQuery(int top);
+
+    /**
+     * 收藏排行榜分页查询
+     * @param currentPage
+     * @param pageSize
+     * @param rname
+     * @param first
+     * @param last
+     * @return
+     */
+    PageBean<Route> pageFavoriteRank(int currentPage, int pageSize, String rname, int first, int last);
 }
