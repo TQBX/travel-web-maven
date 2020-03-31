@@ -4,6 +4,7 @@ import com.travel.domain.Favorite;
 import com.travel.domain.PageBean;
 import com.travel.domain.Route;
 import com.travel.domain.User;
+import com.travel.myenum.CategoryEnum;
 import com.travel.service.FavoriteService;
 import com.travel.service.RouteService;
 import com.travel.service.impl.FavoriteServiceImpl;
@@ -15,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -245,23 +247,28 @@ public class RouteServlet extends BaseServlet {
      * @throws IOException
      */
     public void findCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        //这部分本身想法是直接定义一个方法,方法里传请求的参数字符串,但是没成功,也不知道为啥
         String categoryStr = request.getParameter("category");
-        List<Route> list;
+        List<Route> list = new ArrayList<>();
         //页面显示的数量
         int size = 4;
-        if("count".equals(categoryStr)){
-            list = routeService.findCount(size);
-        }else if("isThemeTour".equals(categoryStr)){
-            list = routeService.findTheme(size);
-        }else if ("rdate".equals(categoryStr)){
-            list = routeService.findDate(size);
-        }else {
-            list = routeService.findCount(size);
+        //遍历枚举实例
+        for(CategoryEnum c:CategoryEnum.values()){
+            //匹配传入参数category
+            if(c.getCategory().equals(categoryStr)){
+                //获取对应的方法名
+                String methodName = c.getMethodName();
+                try {
+                    //根据方法名获取方法对象
+                    Method method = routeService.getClass().getMethod(methodName, int.class);
+                    //利用实例对象调用方法返回list
+                    list = (List<Route>) method.invoke(routeService, size);
+                    break;
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
         }
         writeValue(list,response);
-
     }
 
 }

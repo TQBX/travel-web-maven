@@ -22,6 +22,7 @@ E:\java_learning\webmvn\src\main\java\com\travel\dao\impl\RouteImgDaoImpl.java
 E:\java_learning\webmvn\src\main\java\com\travel\domain\RouteImg.java
 E:\java_learning\webmvn\src\main\java\com\travel\service\FavoriteService.java
 E:\java_learning\webmvn\src\main\java\com\travel\dao\impl\FavoriteDaoImpl.java
+E:\java_learning\webmvn\src\main\java\com\travel\myenum\CategoryEnum.java
 E:\java_learning\webmvn\src\main\java\com\travel\utils\JDBCUtils.java
 E:\java_learning\webmvn\src\main\java\com\travel\utils\MavenClean.java
 E:\java_learning\webmvn\src\main\java\com\travel\domain\ResultInfo.java

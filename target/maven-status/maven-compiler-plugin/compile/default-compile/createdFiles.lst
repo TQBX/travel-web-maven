@@ -20,6 +20,7 @@ com\travel\domain\RouteImg.class
 com\travel\service\impl\FavoriteServiceImpl.class
 com\travel\service\impl\CategoryServiceImpl.class
 com\travel\dao\RouteImgDao.class
+com\travel\myenum\CategoryEnum.class
 com\travel\dao\SellerDao.class
 com\travel\dao\RouteDao.class
 com\travel\service\FavoriteService.class
